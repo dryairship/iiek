@@ -87,6 +87,10 @@ export class ProgramState {
         this.error = `Error raised in statement: ${statement}\nNotebook contains non-numeric values.`;
     }
 
+    raiseNonStringValuesError(statement: string): void {
+        this.error = `Error raised in statement: ${statement}\nNotebook contains non-string values.`;
+    }
+
     raiseValuesCountError(statement: string, expectedCount: number, hasCount: number): void {
         this.error = `Error raised in statement: ${statement}\nNotebook contains different number of values than expected. Expected: ${expectedCount}. Has: ${hasCount}`;
     }

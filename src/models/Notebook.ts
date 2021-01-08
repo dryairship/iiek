@@ -41,13 +41,13 @@ export class Notebook {
 
     assertNumbers(): boolean {
         return this.values.every(
-            value => value.type = ValueType.NUMBER
+            value => value.type === ValueType.NUMBER
         );
     }
 
     assertStrings(): boolean {
         return this.values.every(
-            value => value.type = ValueType.STRING
+            value => value.type === ValueType.STRING
         );
     }
 
