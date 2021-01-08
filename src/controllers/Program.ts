@@ -5,14 +5,13 @@ import * as locations from "../locations";
 export default class Program {
     statements: string[];
     state: models.ProgramState;
-    input: string[];
     schedules: Map<number, string[]>;
 
     constructor(program: string, input: string) {
         this.statements = program.split(/\r?\n/).reverse();
-        this.input = input.split(/\r?\n/);
         this.schedules = new Map();
-        this.state = new models.ProgramState();
+        let inputArray = input.split(/\r?\n/).reverse();
+        this.state = new models.ProgramState(inputArray);
     }
 
     preProcess(): void {
@@ -36,6 +35,10 @@ export default class Program {
             this.state.currentLocation = new locations.RoomC513Hall12();
         else if(place === "New ShopC")
             this.state.currentLocation = new locations.NewShopC();
+        else if(place === "ENG112 class")
+            this.state.currentLocation = new locations.ENG112Class();
+        else if(place === "COM200 class")
+            this.state.currentLocation = new locations.COM200Class();
         else
             this.state.raiseUnknownLocationError(place);
     }

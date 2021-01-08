@@ -8,4 +8,6 @@ export const NOTEBOOK_COST = 100;
 export const gotoRegex = new RegExp('^Go to (?:the|a)?\\s?([a-zA-Z0-9, ]+)\\.$');
 export const scheduleRegex = new RegExp('^Follow Maggu Schedule ([0-9]+)\\.$');
 export const introduceRegex = new RegExp('^Introduce\\.$');
-export const buyNotebooksRegex = new RegExp('^Buy ([0-9]+) notebooks\\.$');
+export const buyNotebooksRegex = new RegExp('^Buy ([0-9]+) notebooks?\\.$');
+export const takeNotesRegex = new RegExp('^Take notes in notebook ([0-9]+)\\.$');
+export const copyNotesRegex = new RegExp('^Copy notes from notebook ([0-9]+) to notebook ([0-9]+)\\.$');

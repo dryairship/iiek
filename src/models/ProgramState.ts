@@ -11,14 +11,16 @@ export class ProgramState {
     notebooks: Array<Notebook>;
     error: string | null;
     output: string[];
+    input: string[];
 
-    constructor() {
+    constructor(input: string[]) {
         this.funLevel = constants.MAX_FUN_LEVEL;
         this.foodLevel = constants.MAX_FOOD_LEVEL;
         this.money = constants.INITIAL_MONEY;
         this.notebooks = [];
         this.error = null;
         this.output = [];
+        this.input = input;
         this.currentLocation = new RoomC513Hall12();
     }
 
@@ -39,6 +41,10 @@ export class ProgramState {
     }
 
     raiseUnknownLocationError(location: string) {
-        this.error = `Unknown location: ${location}`
+        this.error = `Unknown location: ${location}`;
+    }
+
+    raiseNotebookError(notebook: string) {
+        this.error = `Invalid notebook number ${notebook}`;
     }
 }
