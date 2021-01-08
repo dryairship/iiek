@@ -1,0 +1,15 @@
+{
+  "name": "iiek",
+  "version": "1.0.0",
+  "description": "IITK themed esolang.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^14.14.20"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}

@@ -1,7 +1,7 @@
-import * as models from '..';
-import { introduceRegex } from "../../constants";
+import * as models from '../models';
+import { introduceRegex } from "../constants";
 
-export default class RoomC513Hall12 implements models.Location {
+export class RoomC513Hall12 implements models.Location {
     name: string = "Room C513, Hall 12";
 
     performAction(state: models.ProgramState, action: string): void {

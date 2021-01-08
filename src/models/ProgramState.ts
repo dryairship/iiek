@@ -1,6 +1,7 @@
 import { Notebook } from "./Notebook";
 import { Location } from "./Location";
-import RoomC513Hall12 from "./locations/RoomC513Hall12";
+import { RoomC513Hall12 } from "../locations/RoomC513Hall12";
+import * as constants from "../constants";
 
 export class ProgramState {
     currentLocation: Location;
@@ -12,9 +13,9 @@ export class ProgramState {
     output: string[];
 
     constructor() {
-        this.funLevel = 100;
-        this.foodLevel = 100;
-        this.money = 1000;
+        this.funLevel = constants.MAX_FUN_LEVEL;
+        this.foodLevel = constants.MAX_FOOD_LEVEL;
+        this.money = constants.INITIAL_MONEY;
         this.notebooks = [];
         this.error = null;
         this.output = [];
@@ -22,14 +23,22 @@ export class ProgramState {
     }
 
     raiseFoodError(statement: string): void {
-        this.error = "Not enough food to execute command: " + statement;
+        this.error = `Not enough food to execute command: ${statement}`;
     }
 
     raiseUnknownActionError(location: Location, statement: string): void {
-        this.error = "Cannot perform this action at "+ location.name+": "+statement;
+        this.error = `Cannot perform this action at ${location.name}: ${statement}`;
     }
 
     raiseInvalidSyntaxError(statement: string): void {
-        this.error = "Invalid Syntax: "+statement;
+        this.error = `Invalid Syntax: ${statement}`;
+    }
+
+    raiseCustomError(statement: string, error: string): void {
+        this.error = `Error raised in statement: ${statement}\n${error}`;
+    }
+
+    raiseUnknownLocationError(location: string) {
+        this.error = `Unknown location: ${location}`
     }
 }

@@ -1,5 +1,6 @@
 import * as models from "../models/";
 import * as regexes from "../constants";
+import * as locations from "../locations";
 
 export default class Program {
     statements: string[];
@@ -29,9 +30,14 @@ export default class Program {
             this.state.raiseInvalidSyntaxError(statement);
             return;
         }
-        let place = match[1];
+        let place = match[1].trim();
 
-        // Set current location according to place.
+        if(place === "Room C513, Hall 12")
+            this.state.currentLocation = new locations.RoomC513Hall12();
+        else if(place === "New ShopC")
+            this.state.currentLocation = new locations.NewShopC();
+        else
+            this.state.raiseUnknownLocationError(place);
     }
 
     runSchedule(statement: string): void {
@@ -51,6 +57,9 @@ export default class Program {
         while(this.state.error === null && this.statements.length > 0) {
             let currentStatement = this.statements.pop();
             if(typeof currentStatement === 'string') {
+                if(currentStatement.trim().length === 0)
+                    continue;
+
                 if(regexes.gotoRegex.test(currentStatement)) {
                     this.runGoto(currentStatement);
                 }else if(regexes.scheduleRegex.test(currentStatement)) {
