@@ -38,6 +38,8 @@ export default class Program {
             this.state.currentLocation = new locations.ENG112Class();
         } else if(place === "COM200 class") {
             this.state.currentLocation = new locations.COM200Class();
+        } else if(place === "AE401 class") {
+            this.state.currentLocation = new locations.AE401Class();
         } else {
             this.state.raiseUnknownLocationError(place);
         }
