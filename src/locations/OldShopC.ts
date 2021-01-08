@@ -1,10 +1,10 @@
 import * as models from '../models';
 import { copyNotesRegex, COPYING_COST } from "../constants";
 
-export class OldShopC implements models.Location {
-    name: string = "Old ShopC";
+export const OldShopC: models.Location = class OldShopC {
+    static Name: string = "Old ShopC";
 
-    performAction(state: models.ProgramState, action: string): void {
+    static performAction(state: models.ProgramState, action: string): void {
         let match = action.match(copyNotesRegex);
         if(match === null || match.length < 3) {
             state.raiseInvalidSyntaxError(action);

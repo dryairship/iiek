@@ -1,10 +1,10 @@
 import * as models from '../models';
 import { takeNotesRegex } from "../constants";
 
-export class MTH101Class implements models.Location {
-    name: string = "MTH101 class";
+export const MTH101Class: models.Location = class MTH101Class {
+    static Name: string = "MTH101 class";
 
-    performAction(state: models.ProgramState, action: string): void {
+    static performAction(state: models.ProgramState, action: string): void {
         let match = action.match(takeNotesRegex);
         if(match === null || match.length < 2) {
             state.raiseUnknownActionError(this, action);

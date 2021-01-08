@@ -1,6 +1,6 @@
 import { ProgramState } from './ProgramState';
 
 export interface Location {
-    name: string;
+    Name: string;
     performAction(state: ProgramState, action: string): void;
 }

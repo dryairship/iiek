@@ -21,7 +21,7 @@ export class ProgramState {
         this.error = null;
         this.output = [];
         this.input = input;
-        this.currentLocation = new RoomC513Hall12();
+        this.currentLocation = RoomC513Hall12;
     }
 
     subtractFood(statement: string): boolean {
@@ -64,7 +64,7 @@ export class ProgramState {
     }
 
     raiseUnknownActionError(location: Location, statement: string): void {
-        this.error = `Cannot perform this action at ${location.name}: ${statement}`;
+        this.error = `Cannot perform this action at ${location.Name}: ${statement}`;
     }
 
     raiseInvalidSyntaxError(statement: string): void {

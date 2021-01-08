@@ -63,28 +63,28 @@ export default class Program {
         }
         let place = match[1].trim();
 
-        if(place === "Room C513, Hall 12") {
-            this.state.currentLocation = new locations.RoomC513Hall12();
-        } else if(place === "New ShopC") {
-            this.state.currentLocation = new locations.NewShopC();
-        } else if(place === "Old ShopC") {
-            this.state.currentLocation = new locations.OldShopC();
-        } else if(place === "ENG112 class") {
-            this.state.currentLocation = new locations.ENG112Class();
-        } else if(place === "COM200 class") {
-            this.state.currentLocation = new locations.COM200Class();
-        } else if(place === "AE401 class") {
-            this.state.currentLocation = new locations.AE401Class();
-        } else if(place === "MTH101 class") {
-            this.state.currentLocation = new locations.MTH101Class();
-        } else if(place === "MTH102 class") {
-            this.state.currentLocation = new locations.MTH102Class();
-        } else if(place === "MSO202 class") {
-            this.state.currentLocation = new locations.MSO202Class();
-        } else if(place === "MSO203 class") {
-            this.state.currentLocation = new locations.MSO203Class();
-        } else if(place === "PHY103 class") {
-            this.state.currentLocation = new locations.PHY103Class();
+        if(place === locations.RoomC513Hall12.Name) {
+            this.state.currentLocation = locations.RoomC513Hall12;
+        } else if(place === locations.NewShopC.Name) {
+            this.state.currentLocation = locations.NewShopC;
+        } else if(place === locations.OldShopC.Name) {
+            this.state.currentLocation = locations.OldShopC;
+        } else if(place === locations.ENG112Class.Name) {
+            this.state.currentLocation = locations.ENG112Class;
+        } else if(place === locations.COM200Class.Name) {
+            this.state.currentLocation = locations.COM200Class;
+        } else if(place === locations.AE401Class.Name) {
+            this.state.currentLocation = locations.AE401Class;
+        } else if(place === locations.MTH101Class.Name) {
+            this.state.currentLocation = locations.MTH101Class;
+        } else if(place === locations.MTH102Class.Name) {
+            this.state.currentLocation = locations.MTH102Class;
+        } else if(place === locations.MSO202Class.Name) {
+            this.state.currentLocation = locations.MSO202Class;
+        } else if(place === locations.MSO203Class.Name) {
+            this.state.currentLocation = locations.MSO203Class;
+        } else if(place === locations.PHY103Class.Name) {
+            this.state.currentLocation = locations.PHY103Class;
         } else {
             this.state.raiseUnknownLocationError(place);
         }

@@ -1,10 +1,10 @@
 import * as models from '../models';
 import { buyNotebooksRegex, NOTEBOOK_COST } from "../constants";
 
-export class NewShopC implements models.Location {
-    name: string = "New ShopC";
+export const NewShopC: models.Location = class NewShopC {
+    static Name: string = "New ShopC";
 
-    performAction(state: models.ProgramState, action: string): void {
+    static performAction(state: models.ProgramState, action: string): void {
         let match = action.match(buyNotebooksRegex);
         if(match === null || match.length < 2) {
             state.raiseUnknownActionError(this, action);
