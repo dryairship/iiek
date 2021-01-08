@@ -1,6 +1,6 @@
 import * as models from "../models/";
 import * as regexes from "../constants";
-import * as locations from "../locations";
+import locations from "../locations";
 
 export default class Program {
     statements: string[];
@@ -63,28 +63,9 @@ export default class Program {
         }
         let place = match[1].trim();
 
-        if(place === locations.RoomC513Hall12.Name) {
-            this.state.currentLocation = locations.RoomC513Hall12;
-        } else if(place === locations.NewShopC.Name) {
-            this.state.currentLocation = locations.NewShopC;
-        } else if(place === locations.OldShopC.Name) {
-            this.state.currentLocation = locations.OldShopC;
-        } else if(place === locations.ENG112Class.Name) {
-            this.state.currentLocation = locations.ENG112Class;
-        } else if(place === locations.COM200Class.Name) {
-            this.state.currentLocation = locations.COM200Class;
-        } else if(place === locations.AE401Class.Name) {
-            this.state.currentLocation = locations.AE401Class;
-        } else if(place === locations.MTH101Class.Name) {
-            this.state.currentLocation = locations.MTH101Class;
-        } else if(place === locations.MTH102Class.Name) {
-            this.state.currentLocation = locations.MTH102Class;
-        } else if(place === locations.MSO202Class.Name) {
-            this.state.currentLocation = locations.MSO202Class;
-        } else if(place === locations.MSO203Class.Name) {
-            this.state.currentLocation = locations.MSO203Class;
-        } else if(place === locations.PHY103Class.Name) {
-            this.state.currentLocation = locations.PHY103Class;
+        let foundLocation = locations.find(location => location.Name === place);
+        if(foundLocation !== undefined) {
+            this.state.currentLocation = foundLocation;
         } else {
             this.state.raiseUnknownLocationError(place);
         }
