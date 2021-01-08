@@ -27,6 +27,10 @@ export class Notebook {
         this.values = [];
     }
 
+    push(value: Value): void {
+        this.values.push(value);
+    }
+
     pushNumber(value: number): void {
         this.values.push(new Value(ValueType.NUMBER, value));
     }

@@ -11,18 +11,20 @@ export class COM200Class implements models.Location {
             return;
         }
 
-        let notebookNumber = Number(match[1]);
-        if(Number.isNaN(notebookNumber) || state.notebooks.length < notebookNumber || notebookNumber < 1){
-            state.raiseNotebookError(match[1]);
-            return;
-        }
+        if(state.subtractFun(action)) {
+            let notebookNumber = Number(match[1]);
+            if(Number.isNaN(notebookNumber) || state.notebooks.length < notebookNumber || notebookNumber < 1){
+                state.raiseNotebookError(match[1]);
+                return;
+            }
 
-        let line = state.input.pop();
-        if(state.input.length <= 0 || !line) {
-            state.raiseCustomError(action, `Input is empty`);
-            return;
-        }
+            let line = state.input.pop();
+            if(state.input.length <= 0 || !line) {
+                state.raiseCustomError(action, `Input is empty`);
+                return;
+            }
 
-        state.notebooks[notebookNumber-1].pushString(line);
+            state.notebooks[notebookNumber-1].pushString(line);
+        }
     }
 }

@@ -2,7 +2,9 @@
 export const MAX_FUN_LEVEL = 15;
 export const MAX_FOOD_LEVEL = 20;
 export const INITIAL_MONEY = 1000;
+
 export const NOTEBOOK_COST = 100;
+export const COPYING_COST = 20;
 
 // Regular Expressions
 export const gotoRegex = new RegExp('^Go to (?:the|a)?\\s?([a-zA-Z0-9, ]+)\\.$');

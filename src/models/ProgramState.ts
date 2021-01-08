@@ -24,8 +24,43 @@ export class ProgramState {
         this.currentLocation = new RoomC513Hall12();
     }
 
+    subtractFood(statement: string): boolean {
+        if(this.foodLevel > 0) {
+            this.foodLevel -= 1;
+            return true;
+        }
+        this.raiseFoodError(statement);
+        return false;
+    }
+
+    subtractFun(statement: string): boolean {
+        if(this.funLevel > 0) {
+            this.funLevel -= 1;
+            return true;
+        }
+        this.raiseFunError(statement);
+        return false;
+    }
+
+    subtractMoney(statement: string, amount: number): boolean {
+        if(this.money > amount) {
+            this.money -= amount;
+            return true;
+        }
+        this.raiseMoneyError(statement, amount);
+        return false;
+    }
+
     raiseFoodError(statement: string): void {
         this.error = `Not enough food to execute command: ${statement}`;
+    }
+
+    raiseFunError(statement: string): void {
+        this.error = `Not enough fun value to execute command: ${statement}`;
+    }
+
+    raiseMoneyError(statement: string, required: number): void {
+        this.error = `Not enough money to execute command: ${statement}.\nRequired: ${required}. Have: ${this.money}`;
     }
 
     raiseUnknownActionError(location: Location, statement: string): void {

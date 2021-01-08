@@ -18,13 +18,9 @@ export class NewShopC implements models.Location {
         }
 
         let requiredMoney = count*NOTEBOOK_COST;
-        if(state.money < requiredMoney){
-            state.raiseCustomError(action, `Not enough money to buy ${match[1]} notebooks. Required: ${requiredMoney}, Have: ${state.money}`);
-            return;
+        if(state.subtractMoney(action, requiredMoney)) {
+            for(let i=0; i<count; i++)
+                state.notebooks.push(new models.Notebook());
         }
-
-        state.money -= requiredMoney;
-        for(let i=0; i<count; i++)
-            state.notebooks.push(new models.Notebook());
     }
 }

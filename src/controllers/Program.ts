@@ -19,11 +19,8 @@ export default class Program {
     }
 
     runGoto(statement: string): void {
-        if(this.state.foodLevel > 0)
-            this.state.foodLevel -= 1;
-        else
-            this.state.raiseFoodError(statement);
-
+        if(!this.state.subtractFood(statement))
+            return;
         let match = statement.match(regexes.gotoRegex);
         if(match === null || match.length < 2) {
             this.state.raiseInvalidSyntaxError(statement);
@@ -31,16 +28,19 @@ export default class Program {
         }
         let place = match[1].trim();
 
-        if(place === "Room C513, Hall 12")
+        if(place === "Room C513, Hall 12") {
             this.state.currentLocation = new locations.RoomC513Hall12();
-        else if(place === "New ShopC")
+        } else if(place === "New ShopC") {
             this.state.currentLocation = new locations.NewShopC();
-        else if(place === "ENG112 class")
+        } else if(place === "Old ShopC") {
+            this.state.currentLocation = new locations.OldShopC();
+        } else if(place === "ENG112 class") {
             this.state.currentLocation = new locations.ENG112Class();
-        else if(place === "COM200 class")
+        } else if(place === "COM200 class") {
             this.state.currentLocation = new locations.COM200Class();
-        else
+        } else {
             this.state.raiseUnknownLocationError(place);
+        }
     }
 
     runSchedule(statement: string): void {
