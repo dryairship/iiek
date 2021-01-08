@@ -1,8 +1,8 @@
-enum ValueType {
+export enum ValueType {
     NUMBER, STRING
 }
 
-class Value {
+export class Value {
     type: ValueType;
     data: number | string;
 
@@ -12,7 +12,7 @@ class Value {
     }
 }
 
-class Notebook {
+export class Notebook {
     values: Value[];
 
     count(): number {
