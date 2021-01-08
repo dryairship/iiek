@@ -14,8 +14,43 @@ export default class Program {
         this.state = new models.ProgramState(inputArray);
     }
 
+    trimTop(): void {
+        while(this.statements.length > 0) {
+            let popped = this.statements.pop();
+            if(popped === undefined) break;
+            if(popped.trim().length > 0) {
+                this.statements.push(popped);
+                break;
+            }
+        }
+    }
+
     preProcess(): void {
-        // Extract and set Schedules here
+        while(this.statements.length > 0){
+            this.trimTop();
+            let popped = this.statements.pop();
+            if(popped === undefined) break;
+            let match = popped.match(regexes.defineScheduleRegex);
+            if(match === null){
+                this.statements.push(popped);
+                break;
+            }
+            if(match.length < 2 || Number.isNaN(Number(match[1]))) {
+                this.state.raiseInvalidSyntaxError(popped);
+                break;
+            }
+            let scheduleNumber = Number(match[1]);
+            let scheduleStatements: string[] = [];
+            while(this.statements.length > 0) {
+                popped = this.statements.pop();
+                if(popped === undefined) break;
+                if(regexes.endDefinitionRegex.test(popped))
+                    break;
+                scheduleStatements.push(popped);
+            }
+            scheduleStatements.reverse();
+            this.schedules.set(scheduleNumber, scheduleStatements);
+        }
     }
 
     runGoto(statement: string): void {
@@ -46,14 +81,19 @@ export default class Program {
     }
 
     runSchedule(statement: string): void {
-        let match = statement.match(regexes.scheduleRegex);
+        let match = statement.match(regexes.followScheduleRegex);
         if(match === null || match.length < 2) {
             this.state.raiseInvalidSyntaxError(statement);
             return;
         }
-        let scheduleNumber = match[1];
-
-        // Modify statements according to schedule.
+        let scheduleNumber = Number(match[1]);
+        if(this.schedules.has(scheduleNumber)) {
+            let scheduleStatements = this.schedules.get(scheduleNumber);
+            if(scheduleStatements === undefined) return;
+            this.statements = this.statements.concat(scheduleStatements);
+        } else {
+            this.state.raiseCustomError(statement, `Schedule ${match[1]} not found.`);
+        }
     }
 
     run(): void {
@@ -67,7 +107,7 @@ export default class Program {
 
                 if(regexes.gotoRegex.test(currentStatement)) {
                     this.runGoto(currentStatement);
-                }else if(regexes.scheduleRegex.test(currentStatement)) {
+                }else if(regexes.followScheduleRegex.test(currentStatement)) {
                     this.runSchedule(currentStatement);
                 }else{
                     this.state.currentLocation.performAction(this.state, currentStatement);
@@ -78,7 +118,6 @@ export default class Program {
         if(this.state.error !== null){
             console.log(this.state.error);
         }else{
-            this.state.output.reverse();
             let out = this.state.output.join("\n");
             console.log(out);
         }
