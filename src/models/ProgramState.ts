@@ -75,11 +75,23 @@ export class ProgramState {
         this.error = `Error raised in statement: ${statement}\n${error}`;
     }
 
-    raiseUnknownLocationError(location: string) {
+    raiseUnknownLocationError(location: string): void {
         this.error = `Unknown location: ${location}`;
     }
 
-    raiseNotebookError(notebook: string) {
+    raiseNotebookError(notebook: string): void {
         this.error = `Invalid notebook number ${notebook}`;
+    }
+
+    raiseNonNumericValuesError(statement: string): void {
+        this.error = `Error raised in statement: ${statement}\nNotebook contains non-numeric values.`;
+    }
+
+    raiseValuesCountError(statement: string, expectedCount: number, hasCount: number): void {
+        this.error = `Error raised in statement: ${statement}\nNotebook contains different number of values than expected. Expected: ${expectedCount}. Has: ${hasCount}`;
+    }
+
+    raiseEmptyNotebookError(statement: string): void {
+        this.error = `Error raise in statement: ${statement}\nNotebook is empty.`
     }
 }

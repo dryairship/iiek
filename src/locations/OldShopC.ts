@@ -25,7 +25,6 @@ export class OldShopC implements models.Location {
 
             let from = state.notebooks[notebookFrom-1];
             let to = state.notebooks[notebookTo-1];
-            to.clear();
             from.values.forEach(value => to.push(new models.Value(value.type, value.data)));
         }
     }

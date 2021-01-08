@@ -75,6 +75,16 @@ export default class Program {
             this.state.currentLocation = new locations.COM200Class();
         } else if(place === "AE401 class") {
             this.state.currentLocation = new locations.AE401Class();
+        } else if(place === "MTH101 class") {
+            this.state.currentLocation = new locations.MTH101Class();
+        } else if(place === "MTH102 class") {
+            this.state.currentLocation = new locations.MTH102Class();
+        } else if(place === "MSO202 class") {
+            this.state.currentLocation = new locations.MSO202Class();
+        } else if(place === "MSO203 class") {
+            this.state.currentLocation = new locations.MSO203Class();
+        } else if(place === "PHY103 class") {
+            this.state.currentLocation = new locations.PHY103Class();
         } else {
             this.state.raiseUnknownLocationError(place);
         }
