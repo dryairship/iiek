@@ -11,6 +11,7 @@ export const gotoRegex = new RegExp('^Go to (?:the|a)?\\s?([a-zA-Z0-9, ]+)\\.$')
 export const defineScheduleRegex = new RegExp('^Define Maggu Schedule ([0-9]+)\\.$');
 export const endDefinitionRegex = new RegExp('^End definition\\.$');
 export const followScheduleRegex = new RegExp('^Follow Maggu Schedule ([0-9]+)\\.$');
+export const ifRegex = new RegExp('^If notebook ([0-9]+) notes are complete then follow Maggu Schedule ([0-9]+)(?: else follow Maggu Schedule ([0-9]+))?\\.$');
 export const introduceRegex = new RegExp('^Introduce\\.$');
 export const buyNotebooksRegex = new RegExp('^Buy ([0-9]+) notebooks?\\.$');
 export const takeNotesRegex = new RegExp('^Take notes in notebook ([0-9]+)\\.$');

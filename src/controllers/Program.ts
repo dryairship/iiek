@@ -96,6 +96,45 @@ export default class Program {
         }
     }
 
+    runIf(statement: string): void {
+        let match = statement.match(regexes.ifRegex);
+        if(match === null || match.length < 3) {
+            this.state.raiseInvalidSyntaxError(statement);
+            return;
+        }
+        let notebookNumber = Number(match[1]);
+        let ifScheduleNumber = Number(match[2]);
+        let elseScheduleNumber = Number(match[3]);
+        if(Number.isNaN(notebookNumber) || notebookNumber > this.state.notebooks.length || notebookNumber < 1) {
+            this.state.raiseNotebookError(match[1]);
+            return;
+        }
+        if(!this.schedules.has(ifScheduleNumber)) {
+            this.state.raiseCustomError(statement, `if schedule (${match[2]}) not found.`);
+            return;
+        }
+        if(statement.includes("else") && !this.schedules.has(elseScheduleNumber)) {
+            this.state.raiseCustomError(statement, `else schedule (${match[3]}) not found.`);
+            return;
+        }
+
+        let notebook = this.state.notebooks[notebookNumber-1];
+        let shouldFollowSchedule = false
+            || (notebook.values.length > 1)
+            || (notebook.values.length > 0 && notebook.values[0].type === models.ValueType.NUMBER && notebook.values[0].data !== 0)
+            || (notebook.values.length > 0 && notebook.values[0].type === models.ValueType.STRING && notebook.values[0].data.toString().trim().length > 0);
+
+        if(shouldFollowSchedule) {
+            let scheduleStatements = this.schedules.get(ifScheduleNumber);
+            if(scheduleStatements === undefined) return;
+            this.statements = this.statements.concat(scheduleStatements);
+        }else if(statement.includes("else")) {
+            let scheduleStatements = this.schedules.get(elseScheduleNumber);
+            if(scheduleStatements === undefined) return;
+            this.statements = this.statements.concat(scheduleStatements);
+        }
+    }
+
     run(): void {
         this.preProcess();
 
@@ -109,6 +148,8 @@ export default class Program {
                     this.runGoto(currentStatement);
                 }else if(regexes.followScheduleRegex.test(currentStatement)) {
                     this.runSchedule(currentStatement);
+                }else if(regexes.ifRegex.test(currentStatement)) {
+                    this.runIf(currentStatement);
                 }else{
                     this.state.currentLocation.performAction(this.state, currentStatement);
                 }
