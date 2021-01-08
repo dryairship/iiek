@@ -1,4 +1,6 @@
-import { Notebook } from './Notebook';
+import { Notebook } from "./Notebook";
+import { Location } from "./Location";
+import RoomC513Hall12 from "./locations/RoomC513Hall12";
 
 export class ProgramState {
     currentLocation: Location;
@@ -16,9 +18,18 @@ export class ProgramState {
         this.notebooks = [];
         this.error = null;
         this.output = [];
+        this.currentLocation = new RoomC513Hall12();
     }
 
     raiseFoodError(statement: string): void {
         this.error = "Not enough food to execute command: " + statement;
+    }
+
+    raiseUnknownActionError(location: Location, statement: string): void {
+        this.error = "Cannot perform this action at "+ location.name+": "+statement;
+    }
+
+    raiseInvalidSyntaxError(statement: string): void {
+        this.error = "Invalid Syntax: "+statement;
     }
 }

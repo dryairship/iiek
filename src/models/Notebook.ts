@@ -15,6 +15,10 @@ export class Value {
 export class Notebook {
     values: Value[];
 
+    constructor() {
+        this.values = [];
+    }
+
     count(): number {
         return this.values.length;
     }

@@ -1,9 +1,7 @@
 import * as models from "../models/";
+import * as regexes from "../constants";
 
-const gotoRegex = new RegExp('^Go to (?:the|a)?\\s?([a-zA-Z0-9 ]+)$');
-const scheduleRegex = new RegExp('^Follow Maggu Schedule ([0-9]+)$');
-
-export class Program {
+export default class Program {
     statements: string[];
     state: models.ProgramState;
     input: string[];
@@ -26,14 +24,22 @@ export class Program {
         else
             this.state.raiseFoodError(statement);
 
-        let match = statement.match(gotoRegex);
+        let match = statement.match(regexes.gotoRegex);
+        if(match === null || match.length < 2) {
+            this.state.raiseInvalidSyntaxError(statement);
+            return;
+        }
         let place = match[1];
 
         // Set current location according to place.
     }
 
     runSchedule(statement: string): void {
-        let match = statement.match(scheduleRegex);
+        let match = statement.match(regexes.scheduleRegex);
+        if(match === null || match.length < 2) {
+            this.state.raiseInvalidSyntaxError(statement);
+            return;
+        }
         let scheduleNumber = match[1];
 
         // Modify statements according to schedule.
@@ -41,16 +47,26 @@ export class Program {
 
     run(): void {
         this.preProcess();
-        
+
         while(this.state.error === null && this.statements.length > 0) {
             let currentStatement = this.statements.pop();
-            if(gotoRegex.test(currentStatement)) {
-                this.runGoto(currentStatement);
-            }else if(scheduleRegex.test(currentStatement)) {
-                this.runSchedule(currentStatement);
-            }else{
-                this.state.currentLocation.performAction(currentStatement);
+            if(typeof currentStatement === 'string') {
+                if(regexes.gotoRegex.test(currentStatement)) {
+                    this.runGoto(currentStatement);
+                }else if(regexes.scheduleRegex.test(currentStatement)) {
+                    this.runSchedule(currentStatement);
+                }else{
+                    this.state.currentLocation.performAction(this.state, currentStatement);
+                }
             }
+        }
+
+        if(this.state.error !== null){
+            console.log(this.state.error);
+        }else{
+            this.state.output.reverse();
+            let out = this.state.output.join("\n");
+            console.log(out);
         }
     }
 }
