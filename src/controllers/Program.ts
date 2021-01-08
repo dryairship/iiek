@@ -151,7 +151,10 @@ export default class Program {
         while(this.state.error === null && this.statements.length > 0) {
             let currentStatement = this.statements.pop();
             if(typeof currentStatement === 'string') {
-                if(currentStatement.trim().length === 0)
+                currentStatement = currentStatement.trim();
+                if(currentStatement.length === 0)
+                    continue;
+                if(currentStatement.startsWith("//"))
                     continue;
 
                 if(regexes.gotoRegex.test(currentStatement)) {
