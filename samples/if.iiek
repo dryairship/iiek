@@ -1,0 +1,25 @@
+Define Maggu Schedule 1.
+Go to COM200 class.
+Take notes in notebook 1.
+Go to ENG112 class.
+Take notes in notebook 1.
+End definition.
+
+
+Define Maggu Schedule 2.
+Go to COM200 class.
+Take notes in notebook 1.
+Go to ENG112 class.
+Take notes in notebook 1.
+Go to COM200 class.
+Take notes in notebook 1.
+Go to ENG112 class.
+Take notes in notebook 1.
+End definition.
+
+
+Go to New ShopC.
+Buy 2 notebooks.
+Go to AE401 class.
+Take notes in notebook 2.
+If notebook 2 notes are complete then follow Maggu Schedule 1 else follow Maggu Schedule 2.
